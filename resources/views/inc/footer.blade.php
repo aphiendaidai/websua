@@ -6,9 +6,9 @@
           <div class="footer-links">
             <h5 class="lead footer-hdr">SERVICES</h5>
             <ul class="footer-link-list">
-              <li><a href="#" class="footer-link">Branding</a></li>
-              <li><a href="#" class="footer-link">Design</a></li>
-              <li><a href="#" class="footer-link">Marketing</a></li>
+              <li><a href="#" class="footer-link">Home</a></li>
+              <li><a href="#" class="footer-link">Login</a></li>
+              <li><a href="#" class="footer-link">Register</a></li>
               <li><a href="#" class="footer-link">Advertisement</a></li>
             </ul>
           </div>

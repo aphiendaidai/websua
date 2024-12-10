@@ -15,8 +15,19 @@ class Post extends Model
         'vacancy_count', 'employment_type',
         'job_location', 'salary', 'deadline',
         'education_level', 'experience',
-        'skills', 'specifications'
+        'skills', 'specifications', 'status'
     ];
+
+
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('status', 'approved');
+    }
 
     //user post piviot for savedJobs
     public function users()
@@ -28,6 +39,7 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\Company');
     }
+
 
     public function deadlineTimestamp()
     {

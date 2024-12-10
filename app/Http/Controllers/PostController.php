@@ -11,17 +11,28 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
+
     public function index()
-    {
-        $posts = Post::latest()->take(20)->with('company')->get();
-        $categories = CompanyCategory::take(5)->get();
-        $topEmployers = Company::latest()->take(3)->get();
-        return view('home')->with([
-            'posts' => $posts,
-            'categories' => $categories,
-            'topEmployers' => $topEmployers
-        ]);
-    }
+{
+    // Lấy các bài viết đã được duyệt (status = 'approved') mới nhất, tối đa 20 bài
+    $posts = Post::where('status', 'approved')
+                 ->latest()
+                 ->take(20)
+                 ->with('company')
+                 ->get();
+
+    // Lấy 5 danh mục công ty
+    $categories = CompanyCategory::take(5)->get();
+
+    // Lấy 3 công ty mới nhất
+    $topEmployers = Company::latest()->take(3)->get();
+
+    return view('home')->with([
+        'posts' => $posts,
+        'categories' => $categories,
+        'topEmployers' => $topEmployers,
+    ]);
+}
 
     public function create()
     {
@@ -36,13 +47,14 @@ class PostController extends Controller
     {
         $this->requestValidate($request);
 
-        $postData = array_merge(['company_id' => auth()->user()->company->id], $request->all());
+        $postData = array_merge(['company_id' => auth()->user()->company->id, 'status'=>'approved'], $request->all());
 
         $post = Post::create($postData);
         if ($post) {
-            Alert::toast('Post listed!', 'success');
-            return redirect()->route('account.authorSection');
+            Alert::toast('Post listed and waiting for admin approval!', 'success');
+        return redirect()->route('account.authorSection');
         }
+
         Alert::toast('Post failed to list!', 'warning');
         return redirect()->back();
     }
@@ -56,7 +68,7 @@ class PostController extends Controller
 
         $similarPosts = Post::whereHas('company', function ($query) use ($company) {
             return $query->where('company_category_id', $company->company_category_id);
-        })->where('id', '<>', $post->id)->with('company')->take(5)->get();
+        })->where('id', '<>', $post->id, )->with('company')->take(5)->get();
         return view('post.show')->with([
             'post' => $post,
             'company' => $company,
@@ -105,6 +117,16 @@ class PostController extends Controller
             'experience' => 'required',
             'skills' => 'required',
             'specifications' => 'sometimes|min:5',
+
         ]);
     }
+
+    public function choduyet(){
+        $posts = Post::all(); // Lấy tất cả bài viết
+
+        return view('post.choduyet',[
+            'posts'=>$posts
+        ]);
+    }
+
 }

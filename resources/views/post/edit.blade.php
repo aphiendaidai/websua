@@ -82,7 +82,9 @@
                 </div>
                 <div class="col-md-6">
                   <label for="">Deadline</label>
-                  <input type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" value="@php $date = new DateTime($post->deadline); echo date('Y-m-d',$date->getTimestamp());@endphp" required >
+                  <input type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" value="@php $date = new DateTime($post->deadline); echo date('Y-m-d',$date->getTimestamp());
+                  @endphp
+                  " required >
                 </div>
               </div>
             </div>

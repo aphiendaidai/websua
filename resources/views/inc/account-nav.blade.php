@@ -1,6 +1,7 @@
 <div class="account-nav">
   <ul class="list-group">
     @role('admin')
+
     <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'dashboard' ? 'active': ''}}">
       <a href="{{route('account.dashboard')}}" class="account-nav-link">
         <i class="fas fa-chart-line"></i> Dashboard
@@ -11,6 +12,11 @@
         <i class="fas fa-users"></i> View All Users
       </a>
     </li>
+        <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'chapnhan' ? 'active': ''}}">
+      <a href="{{route('account.chapnhan')}}" class="account-nav-link">
+        <i class="fas fa-folder-minus"></i>Browse Articles
+      </a>
+    </li>  
     @endrole
     @role('author')
     <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'author-section' ? 'active': ''}}">
@@ -25,6 +31,11 @@
       <a href="{{route('jobApplication.index')}}" class="account-nav-link">
         <i class="fas fa-bell"></i> Job Applications
     </li>
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'deactivate' ? 'active': ''}}">
+      <a href="{{route('post.choduyet')}}" class="account-nav-link">
+        <i class="fas fa-folder-minus"></i> Article awaiting approval
+      </a>
+    </li>  
     @endrole
     <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active': ''}}">
       <a href="{{route('account.index')}}" class="account-nav-link">
@@ -52,6 +63,10 @@
       <a href="{{route('account.deactivate')}}" class="account-nav-link">
         <i class="fas fa-folder-minus"></i> Deactivate Account
       </a>
-    </li>    
+    </li>  
+ 
+
+
+
   </ul>
 </div>

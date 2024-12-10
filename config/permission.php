@@ -87,10 +87,10 @@ return [
 
 
 
-    'guards' => [
-        'web' => ['web'],
-        'api' => ['api'],
-    ],
+    // 'guards' => [
+    //     'web' => ['web'],
+    //     'api' => ['api'],
+    // ],
 
     /*
      * When set to true, the required permission names are added to the exception

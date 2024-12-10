@@ -30,6 +30,7 @@ class CreatePostsTable extends Migration
             $table->unsignedMediumInteger('views')->default(1);
             $table->timestamps();
         });
+        
     }
 
     /**

@@ -22,7 +22,7 @@ class AuthorController extends Controller
             $posts = $company->posts()->get();
 
             if ($company->posts->count()) {
-                $livePosts = $posts->where('deadline', '>', Carbon::now())->count();
+                $livePosts = $posts->where('deadline', '>', Carbon::now(), )->count();
                 $ids = $posts->pluck('id');
                 $applications = JobApplication::whereIn('post_id', $ids)->get();
             }
@@ -40,7 +40,10 @@ class AuthorController extends Controller
     //employer is company of author
     public function employer($employer)
     {
-        $company = Company::find($employer)->with('posts')->first();
+        $company = Company::find($employer)->with(['posts'=>function($query){
+            $query->approved();
+        }])->first();
+        
         return view('account.employer')->with([
             'company' => $company,
         ]);

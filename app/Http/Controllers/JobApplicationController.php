@@ -40,6 +40,7 @@ class JobApplicationController extends Controller
             'application' => $application
         ]);
     }
+    
     public function destroy(Request $request)
     {
         $application = JobApplication::find($request->application_id);
